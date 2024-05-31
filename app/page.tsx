@@ -5,7 +5,6 @@ import './index.css'
 
 import store from '@/redux/store';
 import { Provider } from 'react-redux';
-import FolderTreePanel from '@/components/FolderTree/FolderTreePanel';
 import { DndContext } from '@dnd-kit/core';
 
 export default function Home() {
