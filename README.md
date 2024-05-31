@@ -1,4 +1,4 @@
-# folder-manager
+# file-manager
 
 Task Description: Folder Manager React App
 Objective:
@@ -10,6 +10,7 @@ Include a brief overview of the technologies and libraries used.
 
 ## Key Features 📝
 
+-   Folder Tree View
 -   Folder Breadcrumb
 -   Context Menu For Folder/File
 -   Global Context Menu
@@ -25,6 +26,8 @@ Include a brief overview of the technologies and libraries used.
 -   Duplicate Folder
 -   Global Search
 -   Sort By Alphabetically, Folder, File
+-   Drag and Drop
+
 ## 💻 Technology Used
 
 The Folder Manager Application is built using the following technologies and libraries:
