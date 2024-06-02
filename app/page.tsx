@@ -5,18 +5,12 @@ import './index.css'
 
 import store from '@/redux/store';
 import { Provider } from 'react-redux';
-import { DndContext } from '@dnd-kit/core';
 
 export default function Home() {
-  const handleDragEnd = ({ over }: { over: any }) => {
-    console.log(over);
-  }
   return (
     <div className="home">
       <Provider store={store}>
-        <DndContext onDragEnd={handleDragEnd}>
-          <App />
-        </DndContext>
+        <App />
       </Provider>
     </div>
   );

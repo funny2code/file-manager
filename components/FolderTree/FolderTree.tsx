@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
-import { styled } from "@mui/material/styles";
-import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
-const CustomTreeItem = styled(TreeItem)({
-    ["& .${treeItemClasses.iconContainer}"]: {
-        "& .close": {
-            opacity: 0.3
-        }
-    }
-});
+import { FileType } from '@/types/interfaces';
 
-const FolderTree = ({ explorerData, handleFolderFileCreation }: { explorerData: { id: string; name: string; isFolder: boolean; items: { id: string; name: string; isFolder: boolean; items?: any[] }[] }, handleFolderFileCreation: (id: string, name: string, isFolder: boolean) => void }) => {
-
+const FolderTree = ({ folder, handleFolderFileCreation, index, handleOnOpenFolder }: { 
+    handleFolderFileCreation: (id: string, name: string, isFolder: boolean) => void;
+    folder: FileType;
+    index: number;
+    handleOnOpenFolder: (folder: FileType, index: number)=>void;
+}) => {
     const [isExpand, setIsExpand] = useState(false);
     const [showInput, setShowInput] = useState({
         visible: false,
@@ -20,41 +16,44 @@ const FolderTree = ({ explorerData, handleFolderFileCreation }: { explorerData: 
     });
 
 
-    const handelClick = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>, isFolder: boolean) => {
+    const handelClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, isFolder: boolean) => {
         e.stopPropagation();
 
-        setIsExpand(isFolder);
-        setShowInput({
+        setIsExpand(pre=>!pre);
+        console.log("clicked ---", folder, index);
+        /* setShowInput({
             visible: true,
             isFolder: isFolder,
-        })
+        }) */
+        handleOnOpenFolder(folder, index);
     }
 
-    const onCreateFolder = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    /* const onCreateFolder = (e: React.KeyboardEvent<HTMLInputElement>) => {
 
         // enter key event...
-        if (e.keyCode === 13 && e.target.value) {
+        if (e.key === "Enter" && e.currentTarget.value) {
 
-            handleFolderFileCreation(explorerData.id, e.target.value, showInput.isFolder);
+            handleFolderFileCreation(explorerData.id, e.currentTarget.value, showInput.isFolder);
 
             setShowInput(pre => ({ ...pre, visible: false }))
         }
-    }
+    } */
 
-
-    if (explorerData.isFolder) {
+    if (folder.isFolder) {
        return (
-        <TreeItem itemId={explorerData.id} label={explorerData.name} onClick={() => setIsExpand(pre =>!pre)}>
-            {
-                explorerData.child.map((item) => (
-                    <FolderTree
-                        key={item.id}
-                        explorerData={item}
-                        handleFolderFileCreation={handleFolderFileCreation}
-                    />
-                ))
-            }
-        </TreeItem>
+            <TreeItem itemId={folder.id as string} label={folder.name} onClick={(event) => handelClick(event, folder.isFolder)} >
+                {
+                    folder.child?.map((folder:any, idx:number) => (
+                        <FolderTree
+                            key={folder.id}
+                            index={idx}
+                            folder={folder}
+                            handleOnOpenFolder={handleOnOpenFolder}
+                            handleFolderFileCreation={handleFolderFileCreation}
+                        />
+                    ))
+                }
+            </TreeItem>
        )
     }
 };

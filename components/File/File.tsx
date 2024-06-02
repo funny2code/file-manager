@@ -19,38 +19,6 @@ import { isNameExits, truncateStr } from "@/utils/data";
 import "./File.css";
 import { selectFolders } from "@/redux/reducers/folderReducer";
 import { FileComProps, IdType } from "@/types/interfaces";
-/* import { useDraggable, useDroppable } from "@dnd-kit/core";
-import {CSS} from '@dnd-kit/utilities'; */
-/* 
-const Draggable = (props: { file: { id: any; }; children: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: props.file.id,
-  });
-  const style = {
-    transform: CSS.Translate.toString(transform),
-  };
-
-  return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {props.children}
-    </div>
-  );
-}
-
-const Droppable = (props: { file: { id: any; }; children: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => {
-  const { setNodeRef, isOver } = useDroppable({
-    id: props.file.id
-  });
-  const style = {
-    backgroundColor: isOver? "lightblue" : "white",
-  };
-
-  return (
-    <div ref={setNodeRef} style={style}>
-      {props.children}
-    </div>
-  )
-} */
 
 const File = ({ 
   file, 
@@ -58,7 +26,8 @@ const File = ({
   sourceId,
   targetId,
   setSourceId,
-  setTargetId
+  setTargetId,
+  handleOnOpenFolder
 }: FileComProps) => {
   const folderData = useSelector(selectFolders);
   const { activeFolder, subFolder, stagedFile } = folderData;
@@ -112,12 +81,6 @@ const File = ({
 
   const handleClose = () => {
     setContextMenu(null);
-  };
-
-  const handleOnOpenFolder = () => {
-    if (file.isFolder) {
-      dispatch(updateSubFolder({ ...file, index }));
-    }
   };
 
   const updateFolderNewName = () => {
@@ -220,7 +183,7 @@ const File = ({
           : ""
       }`}
       data-target={file.id}
-      onDoubleClick={handleOnOpenFolder}
+      onDoubleClick={() => handleOnOpenFolder(file, index)}
       onContextMenu={handleContextMenu}
       onClick={updateActiveFolder}
       draggable
@@ -254,7 +217,7 @@ const File = ({
         file={file}
         contextMenu={contextMenu}
         handleClose={handleClose}
-        handleOpenFolder={handleOnOpenFolder}
+        handleOpenFolder={() => handleOnOpenFolder(file, index)}
         handleOnRenameFolder={handleOnRenameFolder}
         handleOnCopyFolder={handleOnCopyFolder}
         handleOnCutFolder={handleOnCutFolder}

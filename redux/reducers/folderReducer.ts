@@ -73,10 +73,35 @@ export const folderReducer = createSlice({
       const file = action.payload;
 
       // add new path
-      updatedPath.push({ id: file.id, name: file.name, index: file.index });
+      let pathIndex = 0;
+      for (pathIndex = 0; pathIndex < updatedPath.length; pathIndex++) {
+        if (updatedPath[pathIndex].id === file.id) {
+          break;
+        }
+      }
+      
+      let existInChild = false;
+      for (let i = 0; i < updatedPathTree.length; i++) {
+        if (updatedPathTree[i].id === file.id) {
+          existInChild = true;
+          break;
+        }
+      }
+
+      if (pathIndex == updatedPath.length) {
+        if (existInChild) {
+          updatedPath.push({ id: file.id, name: file.name, index: file.index });
+          updatedPathTree.push(file.child);
+        } else {
+
+        }
+      }
+      else if (pathIndex < updatedPath.length) {
+        updatedPath.splice(pathIndex + 1);
+      }
 
       // add child to path tree as array item
-      updatedPathTree.push(file.child);
+      // updatedPathTree.push(file.child);
 
       state.path = updatedPath;
       state.pathTree = updatedPathTree;

@@ -1,15 +1,14 @@
 "use client";
 
 import { FC, ReactElement, useEffect, useState } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { green } from "@mui/material/colors";
+/* import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { green } from "@mui/material/colors"; */
 
 import "./App.css";
 
-import Navbar from "@/components/Navbar/Navbar";
+// import Navbar from "@/components/Navbar/Navbar";
 
 // redux stuff
-import { useSelector, useDispatch } from "react-redux";
 import { selectFolders } from "@/redux/reducers/folderReducer";
 import { fetchFolderRoot } from "@/redux/actions/folderAction";
 import FileList from "@/components/FileList/FileList";
@@ -17,8 +16,16 @@ import BreadCrumbText from "@/components/BreadCrumb/BreadCrumbText";
 import ContextMenu from "@/components/ContextMenu/ContextMenu";
 import { FileType } from "@/types/interfaces";
 import FolderTreePanel from "./FolderTree/FolderTreePanel";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    addFileToActiveStatus,
+    addFileToStage,
+    updateFolderName,
+    updateSubFolder,
+    moveNode,
+} from "@/redux/actions/folderAction";
 
-const theme = createTheme({
+/* const theme = createTheme({
   palette: {
     primary: {
       main: "#746de4",
@@ -29,7 +36,7 @@ const theme = createTheme({
     },
   },
 });
-
+ */
 const App: FC = (): ReactElement => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -48,32 +55,35 @@ const App: FC = (): ReactElement => {
     setSearchValue(value);
   };
 
-  // if (folderData?.subFolder && folderData?.subFolder.length) {
   if (folderData?.subFolder && folderData?.subFolder.length) {
+    console.log("folderData.data: ", folderData.data);
     filteredSubFolderData = folderData.subFolder.filter((file: FileType) =>
       file.name.toLowerCase().includes(searchValue.toLowerCase())
     );
   }
+  const handleOnOpenFolder = (folder: FileType, index: number) => {
+    if (folder.isFolder) {
+      dispatch(updateSubFolder({ ...folder, index }));
+    }
+  };
 
   return (
     <ContextMenu>
-      <ThemeProvider theme={theme}>
         {/* <Navbar handleOnSearch={handleOnSearch} /> */}
-        <BreadCrumbText />
 
         {folderData && folderData?.isLoading ? (
           <div>Loading... </div>
         ) : (
           <div className="grid grid-cols-10 gap-3">
             <div className="col-span-2">
-              <FolderTreePanel />
+              <FolderTreePanel explorerData={folderData.data.child} handleOnOpenFolder={handleOnOpenFolder} />
             </div>
             <div className="col-span-8">
-              <FileList fileList={filteredSubFolderData} />
+              <BreadCrumbText />
+              <FileList fileList={filteredSubFolderData} handleOnOpenFolder={handleOnOpenFolder} />
             </div>
           </div>
         )}
-      </ThemeProvider>
     </ContextMenu>
   );
 };

@@ -56,6 +56,7 @@ export type FileComProps = {
   targetId: IdType | null;
   setSourceId: React.Dispatch<React.SetStateAction<IdType | null>>;
   setTargetId: React.Dispatch<React.SetStateAction<IdType | null>>;
+  handleOnOpenFolder: (folder: FileType, index: number) => void;
 }
 
 export type StagedFileType = { stageType: "copy" | 'cut', file: FileType }
