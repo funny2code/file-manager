@@ -19,20 +19,20 @@ import { FileType } from "../types/interfaces";
 //   color: "#45caf1",
 //   child: [
 //     {
-//       id: 1.1,
+//       id: 11,
 //       name: "public",
 //       parentId: 1,
 //       isFolder: true,
 //       child: [
 //         {
-//           id: 1.121212,
+//           id: 1121212,
 //           name: "index",
 //           isFolder: true,
 //           child: [
 //             {
 //               id: 2,
 //               name: "public",
-//               parentId: 1.1,
+//               parentId: 11,
 //               isFolder: true,
 //               child: [{ id: 2.1, name: "index", isFolder: true, child: [] }],
 //             },
@@ -44,7 +44,7 @@ import { FileType } from "../types/interfaces";
 // };
 
 // it is a Tree Data Structure...
-
+/* 
 export const explorer = {
   id: "1",
   name: "root",
@@ -114,7 +114,7 @@ export const explorer = {
           items: []
       }
   ]
-};
+}; */
 
 export const folderTree = {
   id: "root",
@@ -124,7 +124,7 @@ export const folderTree = {
   color: "#45caf1",
   child: [
     {
-      id: 1.1,
+      id: 11,
       name: "public",
       parentId: "root",
       isFolder: true,
@@ -133,7 +133,7 @@ export const folderTree = {
         {
           id: 545454,
           name: "index",
-          parentId: 1.1,
+          parentId: 11,
           isFolder: true,
           color: "#45caf1",
           child: [],
@@ -151,7 +151,7 @@ export const folderTree = {
           id: 3,
           name: "components",
           isFolder: true,
-          parentId: 2.1,
+          parentId: 2,
           color: "#45caf1",
           child: [
             {

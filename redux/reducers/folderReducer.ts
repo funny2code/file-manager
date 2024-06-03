@@ -10,7 +10,7 @@ import {
 } from "../../utils/traverseTree";
 import { folderTree } from "../../utils/data";
 import { v4 as uuidv4 } from "uuid";
-import { addNewFile, moveNode } from "./helper";
+import { addNewFile, moveNode, updateSubFolder } from "./helper";
 import { IState } from "../../types/interfaces";
 
 export const folderReducer = createSlice({
@@ -72,8 +72,10 @@ export const folderReducer = createSlice({
 
       const file = action.payload;
 
+      const updatedState = updateSubFolder(state, file);
+      state = { ...state, ...updatedState };
       // add new path
-      let pathIndex = 0;
+      /* let pathIndex = 0;
       for (pathIndex = 0; pathIndex < updatedPath.length; pathIndex++) {
         if (updatedPath[pathIndex].id === file.id) {
           break;
@@ -105,7 +107,7 @@ export const folderReducer = createSlice({
 
       state.path = updatedPath;
       state.pathTree = updatedPathTree;
-      state.subFolder = file.child;
+      state.subFolder = file.child; */
     },
 
     updateBreadCrumbTree: (state, action) => {

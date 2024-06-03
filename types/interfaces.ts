@@ -36,7 +36,7 @@ export type FileType = {
   isFolder: boolean;
   parentId: string | number;
   color: string;
-  child: [];
+  child: FileType[];
   index?: number | string;
 };
 

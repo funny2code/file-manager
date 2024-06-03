@@ -51,12 +51,10 @@ const App: FC = (): ReactElement => {
 
   const handleOnSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-
     setSearchValue(value);
   };
 
   if (folderData?.subFolder && folderData?.subFolder.length) {
-    console.log("folderData.data: ", folderData.data);
     filteredSubFolderData = folderData.subFolder.filter((file: FileType) =>
       file.name.toLowerCase().includes(searchValue.toLowerCase())
     );
