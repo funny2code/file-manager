@@ -153,7 +153,8 @@ const File = ({
   const handleOnDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    console.log("drag over", sourceId, event.currentTarget.dataset?.target);
+    console.log("drag over", sourceId, event.currentTarget);
+    // event.currentTarget.style.color = "#eee"
     const targetId = event.currentTarget.dataset?.target || null;
     setTargetId(targetId);
   }

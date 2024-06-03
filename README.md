@@ -96,4 +96,4 @@ Please enjoy and feel free to share your opinion, constructive criticism, or com
 This project is open-sourced under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## Deployed Version 🚀
-Live demo (Feel free to visit) 👉🏻 : 
+Live demo (Feel free to visit) 👉🏻 : https://codesandbox.io/p/github/funny2code/file-manager/main
