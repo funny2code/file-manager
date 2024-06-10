@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
-
+import { CustomTreeItem, CustomeTreeView } from "@/components/FileList/CustomeTreeView";
 import { FileType } from '@/types/interfaces';
+import { FolderTwoTone, FolderOpenTwoTone } from '@mui/icons-material';
 
 const FolderTree = ({ folder, handleFolderFileCreation, index, handleOnOpenFolder }: { 
     handleFolderFileCreation: (id: string, name: string, isFolder: boolean) => void;
@@ -41,7 +42,12 @@ const FolderTree = ({ folder, handleFolderFileCreation, index, handleOnOpenFolde
 
     if (folder.isFolder) {
        return (
-            <TreeItem itemId={folder.id as string} label={folder.name} onClick={(event) => handelClick(event, folder.isFolder)} >
+            <CustomTreeItem 
+                itemId={folder.id as string} 
+                label={folder.name} 
+                labelIcon={isExpand ? FolderOpenTwoTone: FolderTwoTone}
+                onClick={(event) => handelClick(event, folder.isFolder)} 
+            >
                 {
                     folder.child?.map((folder:any, idx:number) => (
                         <FolderTree
@@ -53,7 +59,7 @@ const FolderTree = ({ folder, handleFolderFileCreation, index, handleOnOpenFolde
                         />
                     ))
                 }
-            </TreeItem>
+            </CustomTreeItem>
        )
     }
 };

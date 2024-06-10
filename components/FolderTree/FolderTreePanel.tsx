@@ -9,6 +9,12 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import { FileType } from "@/types/interfaces";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
+function EndIcon() {
+    return <div style={{ width: 24 }} />;
+}
 
 function CloseSquare(props: SvgIconProps) {
     return (
@@ -40,9 +46,9 @@ const FolderTreePanel = ({ explorerData, handleOnOpenFolder }: { explorerData: a
             <SimpleTreeView
                 defaultExpandedItems={['grid']}
                 slots={{
-                    expandIcon: AddBoxIcon,
-                    collapseIcon: IndeterminateCheckBoxIcon,
-                    endIcon: CloseSquare,
+                    expandIcon: ArrowRightIcon,
+                    collapseIcon: ArrowDropDownIcon,
+                    endIcon: EndIcon,
                 }}
             >
                 {explorerData.map((folder: any, idx: number) => (
